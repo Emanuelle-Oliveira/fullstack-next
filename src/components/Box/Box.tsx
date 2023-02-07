@@ -3,9 +3,9 @@ import {StyleSheet} from '@src/theme/styleSheet';
 import {BaseComponent} from '@src/theme/BaseComponent';
 
 interface BoxProps {
-  styleSheet: StyleSheet;
-  children: React.ReactNode;
-  tag: any;
+  styleSheet?: StyleSheet;
+  children?: React.ReactNode;
+  tag?: 'main' | 'div' | 'article' | 'section' | 'ul' | string;
 }
 
 export default function Box({ styleSheet, children, tag, ...props } : BoxProps) {
