@@ -5,6 +5,7 @@ import Feed from '@src/screens/HomeScreen/patterns/Feed/Feed';
 import Text from '@src/components/Text/Text';
 import Footer from '@src/screens/HomeScreen/patterns/Footer/Footer';
 import {useTheme} from '@src/theme/ThemeProvider';
+import Link from '@src/components/Link/Link';
 
 export default function HomeScreen() {
   const theme = useTheme();
@@ -18,6 +19,15 @@ export default function HomeScreen() {
         alignItems: 'center'
       }}
     >
+
+      {/*<Link href="https://google.com">
+        Vá para o google
+      </Link>*/}
+
+      <Link href="/about">
+        Vá para o sobre
+      </Link>
+
       <Background/>
       <Menu/>
       <Feed>

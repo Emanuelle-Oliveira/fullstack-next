@@ -9,26 +9,32 @@ interface TextProps {
   variant?: ThemeTypographyVariants;
   tag?: 'p' | 'li' | 'h1' | 'h2' | string;
   children?: React.ReactNode;
-  styleSheet?: StyleSheet
+  styleSheet?: StyleSheet;
+  ref: any;
 }
 
-export default function Text({ styleSheet, variant, ...props } : TextProps) {
+// eslint-disable-next-line react/display-name
+const Text = React.forwardRef(({ styleSheet, variant, tag, ...props } : TextProps, ref) => {
   const theme = useTheme();
   const textVariant = theme.typography.variants[variant];
 
   return (
     <BaseComponent
+      as={tag}
       styleSheet={{
         fontFamily: theme.typography.fontFamily,
         ...textVariant,
         ...styleSheet
       }}
+      ref={ref}
       {...props}
     />
   );
-}
+});
 
 Text.defaultProps = {
   tag: 'p',
   variant: 'body2'
 };
+
+export default Text;
