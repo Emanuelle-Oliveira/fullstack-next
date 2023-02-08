@@ -6,17 +6,26 @@ import Image from '@src/components/Image/Image';
 import Link from '@src/components/Link/Link';
 import ButtonBase from '@src/components/Button/ButtonBase';
 import Button from '@src/components/Button/Button';
+import {useTheme} from '@src/theme/ThemeProvider';
 
 interface FeedProps {
   children: React.ReactNode
 }
 
 export default function Feed({ children } : FeedProps) {
+  const theme = useTheme();
   return(
-    <Box>
-      <Text>
-        Feed base
-      </Text>
+    <Box
+      styleSheet={{
+        backgroundColor: theme.colors.neutral.x000,
+        marginTop: '-228px',
+        width: '100%',
+        maxWidth: '683px',
+        borderRadius: '8px',
+        paddingVertical: '40px',
+        paddingHorizontal: '32px',
+      }}
+    >
       {children}
     </Box>
   );
@@ -25,23 +34,73 @@ export default function Feed({ children } : FeedProps) {
 Feed.Header = Header;
 
 function Header() {
+  const theme = useTheme();
   return (
-    <Box>
-      <Button>
+    <Box
+      styleSheet={{
+        borderBottom: `1px solid ${theme.colors.neutral.x200}`,
+        paddingBottom: '24px',
+        marginBottom: '24px',
+      }}
+    >
+      {/*<Button>
         Olá .....
-      </Button>
-      <ButtonBase> {/*href="https://google.com">*/}
+      </Button>*/}
+      <Box
+        styleSheet={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          gap: '16px',
+          marginBottom: '16px'
+        }}
+      >
         <Image
           styleSheet={{
-            width: '128px',
-            height: '128px',
+            width: {xs: '100px', md: '128px'},
+            height: {xs: '100px', md: '128px'},
             borderRadius: '100%'
           }}
           src="https://github.com/Emanuelle-Oliveira.png"
           alt="Imagem de Perfil"
         />
+
+        <Box
+          styleSheet={{
+            justifyContent: 'space-between'
+          }}
+        >
+          {/* Para desktop */}
+          <Box
+            styleSheet={{
+              flex: '1',
+              justifyContent: 'space-between',
+              display: {xs: 'none', md: 'flex'}
+            }}
+          >
+            <Button fullWidth colorVariant="primary" size="xl" href="/"> Olá pessoas </Button>
+            <Button fullWidth colorVariant="neutral" size="xl" href="/"> Oi galera </Button>
+          </Box>
+          {/* Para mobile*/}
+          <Box
+            styleSheet={{
+              flex: '1',
+              justifyContent: 'space-between',
+              display: {xs: 'flex', md: 'none'}
+            }}
+          >
+            <Button fullWidth colorVariant="primary" size="xs" href="/"> Olá pessoas </Button>
+            <Button fullWidth colorVariant="neutral" size="xs" href="/"> Oi galera </Button>
+          </Box>
+        </Box>
+      </Box>
+
+      <ButtonBase> {/*href="https://google.com">*/}
+        <Text tag="h1" variant="heading4">
+          Emanuelle Oliveira
+        </Text>
       </ButtonBase>
-      <Link href="https://youtube.com">
+
+      {/*}  <Link href="https://youtube.com">
         <Icon name="youtube"/>
       </Link>
 
@@ -50,7 +109,7 @@ function Header() {
       <Icon name="github"/>
       <Text>
         Feed Header
-      </Text>
+      </Text>*/}
     </Box>
   );
 }
