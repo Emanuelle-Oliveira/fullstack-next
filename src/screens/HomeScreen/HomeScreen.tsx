@@ -6,10 +6,13 @@ import Text from '@src/components/Text/Text';
 import Footer from '@src/screens/HomeScreen/patterns/Footer/Footer';
 import {useTheme} from '@src/theme/ThemeProvider';
 import Link from '@src/components/Link/Link';
+import templatePageHOC from '@src/services/template/templatePageHOC';
+// É necessário uma lib para importar arquivos yml
+//import templateConfig from '@src/template-config.yml';
 
-export default function HomeScreen() {
+function HomeScreen(props) {
   const theme = useTheme();
-
+  //console.log(props);
   return (
     <Box
       tag="main"
@@ -45,3 +48,9 @@ export default function HomeScreen() {
     </Box>
   );
 }
+
+// High Order Component
+// "Decora" um component
+export default templatePageHOC(HomeScreen, {
+  title: 'Home'
+});

@@ -7,6 +7,7 @@ import Link from '@src/components/Link/Link';
 import ButtonBase from '@src/components/Button/ButtonBase';
 import Button from '@src/components/Button/Button';
 import {useTheme} from '@src/theme/ThemeProvider';
+import {useTemplateConfig} from '@src/services/template/templateConfigContext';
 
 interface FeedProps {
   children: React.ReactNode
@@ -14,6 +15,7 @@ interface FeedProps {
 
 export default function Feed({ children } : FeedProps) {
   const theme = useTheme();
+
   return(
     <Box
       styleSheet={{
@@ -35,6 +37,8 @@ Feed.Header = Header;
 
 function Header() {
   const theme = useTheme();
+  const templateConfig = useTemplateConfig();
+
   return (
     <Box
       styleSheet={{
@@ -60,7 +64,8 @@ function Header() {
             height: {xs: '100px', md: '128px'},
             borderRadius: '100%'
           }}
-          src="https://github.com/Emanuelle-Oliveira.png"
+          src={templateConfig?.personal?.avatar}
+          /*src="https://github.com/Emanuelle-Oliveira.png"*/
           alt="Imagem de Perfil"
         />
 
@@ -96,9 +101,40 @@ function Header() {
 
       <ButtonBase> {/*href="https://google.com">*/}
         <Text tag="h1" variant="heading4">
-          Emanuelle Oliveira
+          {/*Emanuelle Oliveira*/}
+          {templateConfig?.personal?.name}
         </Text>
       </ButtonBase>
+
+      <Box
+        styleSheet={{
+          flexDirection: 'row',
+          gap: '4px'
+        }}
+      >
+        {/*<Link
+          target="_blank"
+          href={templateConfig.personal.socialNetworks.github}
+        >
+          <Icon name="github"/>
+        </Link>*/}
+        {/* Percorre a lista de objeto de redes sociais*/}
+        {Object.keys(templateConfig.personal.socialNetworks).map(key => {
+          const socialNetwork = templateConfig.personal.socialNetworks[key];
+          if(socialNetwork) {
+            return (
+              <Link
+                key={key}
+                target="_blank"
+                href={templateConfig.personal.socialNetworks[key]}
+              >
+                <Icon name={key as any}/>
+              </Link>
+            );
+          }
+          return null;
+        })}
+      </Box>
 
       {/*}  <Link href="https://youtube.com">
         <Icon name="youtube"/>
