@@ -8,6 +8,8 @@ import ButtonBase from '@src/components/Button/ButtonBase';
 import Button from '@src/components/Button/Button';
 import {useTheme} from '@src/theme/ThemeProvider';
 import {useTemplateConfig} from '@src/services/template/templateConfigContext';
+import type {Post} from '@src/services/posts/postsService';
+import {FeedPost} from '@src/screens/HomeScreen/patterns/Feed/patterns/FeedPost';
 
 interface FeedProps {
   children: React.ReactNode
@@ -33,17 +35,18 @@ export default function Feed({ children } : FeedProps) {
   );
 }
 
-Feed.Header = Header;
+// Feed Header:
 
+Feed.Header = Header;
 function Header() {
   const theme = useTheme();
   const templateConfig = useTemplateConfig();
-
   return (
     <Box
       styleSheet={{
         borderBottom: `1px solid ${theme.colors.neutral.x200}`,
         paddingBottom: '24px',
+        paddingTop: '40px',
         marginBottom: '24px',
       }}
     >
@@ -68,7 +71,6 @@ function Header() {
           /*src="https://github.com/Emanuelle-Oliveira.png"*/
           alt="Imagem de Perfil"
         />
-
         <Box
           styleSheet={{
             justifyContent: 'space-between'
@@ -98,14 +100,12 @@ function Header() {
           </Box>
         </Box>
       </Box>
-
       <ButtonBase> {/*href="https://google.com">*/}
         <Text tag="h1" variant="heading4">
           {/*Emanuelle Oliveira*/}
           {templateConfig?.personal?.name}
         </Text>
       </ButtonBase>
-
       <Box
         styleSheet={{
           flexDirection: 'row',
@@ -135,11 +135,9 @@ function Header() {
           return null;
         })}
       </Box>
-
       {/*}  <Link href="https://youtube.com">
         <Icon name="youtube"/>
       </Link>
-
       <Icon name="twitter"/>
       <Icon name="instagram"/>
       <Icon name="github"/>
@@ -150,14 +148,34 @@ function Header() {
   );
 }
 
-Feed.Posts = Posts;
+// Feed Posts:
 
-function Posts() {
+interface FeedPostsProps {
+  posts: Post[];
+}
+
+Feed.Posts = Posts;
+function Posts({ posts }: FeedPostsProps) {
   return (
     <Box>
-      <Text>
-        Feed Posts
+      <Text variant="heading4" styleSheet={{ margingBottom: '27px' }}>
+        Últimas Atualizações
       </Text>
+      {posts.map(({ title, slug, metadata, image }) => {
+        const { date, excerpt, url, tags } = metadata;
+        return (
+          <FeedPost
+            key={slug}
+            title={title}
+            date={date}
+            excerpt={excerpt}
+            url={url}
+            tags={tags}
+            image={image}
+          />
+        );
+      })}
+
     </Box>
   );
 }

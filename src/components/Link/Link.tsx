@@ -69,10 +69,9 @@ const Link = React.forwardRef(({ href, children, colorVariant, colorVariantEnabl
   }
 
   // Para links internos
+  // Tentar usar Next Link
   return (
-    <NextLink href={href}>
-      <Text>{children}</Text>
-    </NextLink>
+    <Text {...linkProps}/>
   );
 });
 

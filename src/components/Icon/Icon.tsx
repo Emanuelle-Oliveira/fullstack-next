@@ -1,5 +1,6 @@
 import {BaseComponent} from '@src/theme/BaseComponent';
 import * as icons from './svg/_index';
+import {StyleSheet} from '@src/theme/styleSheet';
 
 const iconSizes = {
   xs: '12px',
@@ -15,14 +16,15 @@ interface IconProps {
   size?: keyof typeof iconSizes;
 }
 
-export default function Icon({ size, name, ...props } : IconProps) {
+export default function Icon({ size, name, styleSheet, ...props } : IconProps) {
   const CurrentIcon = icons[name];
   return(
     <BaseComponent
       as="svg"
       styleSheet={{
         width: iconSizes[size],
-        height: iconSizes[size]
+        height: iconSizes[size],
+        ...styleSheet
       }}
       color="inherit"
       fill="currentColor"

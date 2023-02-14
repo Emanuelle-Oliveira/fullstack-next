@@ -11,6 +11,7 @@ export interface Post {
     excerpt: string;
     tags: string[];
   };
+  image?: string;
   title: string;
   slug: string; // "ID do post" -> nome do arquivo ou titulo reduzido
   content: string;
@@ -46,6 +47,7 @@ export default function PostsService() {
             excerpt: data.excerpt,
             tags: data.tags
           },
+          image: data.image || '',
           title: data.title,
           slug: postFileName.replace('.md', ''),
           content: content,
